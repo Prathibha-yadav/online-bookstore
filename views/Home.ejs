@@ -9,7 +9,12 @@
   <h1>Available Books</h1>
   <ul>
     <% books.forEach(book => { %>
-      <li><%= book.title %> by <%= book.author %> - $<%= book.price %></li>
+      <li>
+        <%= book.title %> by <%= book.author %> - $<%= book.price %>
+        <form action="/books/<%= book.id %>/delete" method="POST" style="display: inline;">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
     <% }); %>
   </ul>
   <a href="/newBook"><button>Add Book</button></a>

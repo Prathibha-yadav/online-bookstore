@@ -15,6 +15,19 @@ module.exports = (sequelize, DataTypes) => {
         throw new Error('Failed to add book');
       }
     }
+
+    static async deleteBook(id) {
+      try {
+        const book = await Book.findByPk(id);
+        if (!book) {
+          throw new Error('Book not found');
+        }
+        await book.destroy();
+        return true; // Return true if deletion is successful
+      } catch (error) {
+        throw new Error('Failed to delete book');
+      }
+    }
   }
 
   Book.init({
