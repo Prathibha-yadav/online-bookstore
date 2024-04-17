@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
           throw new Error('Book not found');
         }
         await book.destroy();
-        return true; // Return true if deletion is successful
+        return true; 
       } catch (error) {
         throw new Error('Failed to delete book');
       }
@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         book.title = title;
         book.price = price;
         await book.save();
-        return book; // Return the updated book object
+        return book; 
       } catch (error) {
         throw new Error('Failed to update book');
       }

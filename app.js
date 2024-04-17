@@ -11,15 +11,18 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
+
+// Get Home Page
 app.get('/', async (req, res) => {
   try {
     const books = await Book.findAll();
-    res.render('Home', { books }); // Pass books data to the Home view
+    res.render('Home', { books }); 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
+// Add New Book Page
 app.get('/newBook', (req, res) => {
   res.render('newBook'); 
 });
@@ -28,23 +31,24 @@ app.post('/books', async (req, res) => {
   try {
     const { title, author, price } = req.body;
     const book = await Book.create({ title, author, price });
-    res.redirect('/'); // Redirect to the home page after adding a new book
+    res.redirect('/'); 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
+// Delete Existing Book
 app.post('/books/:id/delete', async (req, res) => {
   try {
     const { id } = req.params;
     await Book.deleteBook(id);
-    res.redirect('/'); // Redirect to the home page after deleting the book
+    res.redirect('/');
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// app.js
+// Get Update Page
 app.get('/books/:id/update', async (req, res) => {
     try {
         const book = await Book.findByPk(req.params.id);
@@ -54,20 +58,16 @@ app.get('/books/:id/update', async (req, res) => {
     }
 });
 
-
-// app.js
+// Update Existing Book
 app.post('/books/:id/update', async (req, res) => {
     try {
         const { id } = req.params;
         const { title, price } = req.body;
         await Book.updateBook(id, title, price);
-        // Redirect to home page or any other appropriate page
         res.redirect('/');
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
-
-  
 
 module.exports = app;
