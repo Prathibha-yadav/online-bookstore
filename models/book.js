@@ -28,6 +28,21 @@ module.exports = (sequelize, DataTypes) => {
         throw new Error('Failed to delete book');
       }
     }
+
+    static async updateBook(id, title, price) {
+      try {
+        const book = await Book.findByPk(id);
+        if (!book) {
+          throw new Error('Book not found');
+        }
+        book.title = title;
+        book.price = price;
+        await book.save();
+        return book; // Return the updated book object
+      } catch (error) {
+        throw new Error('Failed to update book');
+      }
+    }
   }
 
   Book.init({

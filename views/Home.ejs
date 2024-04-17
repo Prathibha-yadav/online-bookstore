@@ -1,22 +1,27 @@
+<!-- home.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
 </head>
 <body>
-  <h1>Available Books</h1>
-  <ul>
-    <% books.forEach(book => { %>
-      <li>
-        <%= book.title %> by <%= book.author %> - $<%= book.price %>
-        <form action="/books/<%= book.id %>/delete" method="POST" style="display: inline;">
-          <button type="submit">Delete</button>
-        </form>
-      </li>
-    <% }); %>
-  </ul>
-  <a href="/newBook"><button>Add Book</button></a>
+    <h1>Available Books</h1>
+    <ul>
+        <% books.forEach(book => { %>
+            <li>
+                <%= book.title %> by <%= book.author %> - $<%= book.price %>
+                <form action="/books/<%= book.id %>/delete" method="POST" style="display: inline;">
+                    <button type="submit">Delete</button>
+                </form>
+                <!-- Add a link/button to update the book -->
+                <a href="/books/<%= book.id %>/update">
+                    <button>Update</button>
+                </a>
+            </li>
+        <% }); %>
+    </ul>
+    <a href="/newBook"><button>Add Book</button></a>
 </body>
 </html>

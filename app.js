@@ -44,4 +44,30 @@ app.post('/books/:id/delete', async (req, res) => {
   }
 });
 
+// app.js
+app.get('/books/:id/update', async (req, res) => {
+    try {
+        const book = await Book.findByPk(req.params.id);
+        res.render('updateBook', { book: book });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
+// app.js
+app.post('/books/:id/update', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, price } = req.body;
+        await Book.updateBook(id, title, price);
+        // Redirect to home page or any other appropriate page
+        res.redirect('/');
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+  
+
 module.exports = app;
